@@ -28,8 +28,11 @@ public class Task extends Entity {
         return new SimpleDateFormat("HH:mm:ss").format(end);
     }
 
-    public void save() {
+    public boolean save() {
+        if(!check_start_end())
+            return false;
         Storage.getInstance().getTasks().addOrUpdate(this);
+        return true;
     }
 
     public static ArrayList<Task> getAll() {
@@ -38,5 +41,15 @@ public class Task extends Entity {
 
     public static boolean remove(int id) {
         return Storage.getInstance().getTasks().remove(id);
+    }
+
+    private boolean check_start_end() {
+        if(start.compareTo(end) > 0)
+            return false;
+        ArrayList<Task> tasks = getAll();
+        for(Task task: tasks)
+            if(start.compareTo(task.end) <= 0 && end.compareTo(task.start) >= 0)
+                return false;
+        return true;
     }
 }

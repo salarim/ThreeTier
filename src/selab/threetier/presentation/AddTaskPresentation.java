@@ -31,10 +31,13 @@ public class AddTaskPresentation extends JSONPresentation {
         } catch (ParseException ex) {
             throw new IOException("Invalid date/time format");
         }
-        newTask.save();
+        boolean success = newTask.save();
 
         Map<String, String> result = new HashMap<>();
-        result.put("success", "true");
+        if(success)
+            result.put("success", "true");
+        else
+            result.put("success", "false");
         return new JSONObject(result);
     }
 }
