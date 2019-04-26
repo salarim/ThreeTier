@@ -4,6 +4,8 @@ import selab.threetier.storage.Storage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
 
@@ -36,7 +38,14 @@ public class Task extends Entity {
     }
 
     public static ArrayList<Task> getAll() {
-        return Storage.getInstance().getTasks().getAll();
+        ArrayList<Task> tasks = Storage.getInstance().getTasks().getAll();
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.start.compareTo(o2.start);
+            }
+        });
+        return tasks;
     }
 
     public static boolean remove(int id) {
