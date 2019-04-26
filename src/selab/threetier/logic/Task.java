@@ -35,4 +35,8 @@ public class Task extends Entity {
     public static ArrayList<Task> getAll() {
         return Storage.getInstance().getTasks().getAll();
     }
+
+    public static boolean remove(int id) {
+        return Storage.getInstance().getTasks().remove(id);
+    }
 }

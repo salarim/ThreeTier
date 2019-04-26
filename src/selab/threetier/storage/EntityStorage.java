@@ -30,4 +30,10 @@ public class EntityStorage<T extends Entity> {
     public T get(int id) {
         return list.get(id);
     }
+
+    public boolean remove(int id) {
+        if(list.remove(id) != null)
+            return true;
+        return false;
+    }
 }
